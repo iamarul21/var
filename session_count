@@ -1,0 +1,47 @@
+<?php
+include('connect.php');
+ini_set('session.cookie_lifetime', 60);
+ini_set('session.gc_maxlifetime', 60);
+session_start();
+if(@$_GET['aff_id'])
+{
+	$aff_id=@$_GET['aff_id'];
+	$get=@$_GET['val'];
+
+if (!isset($_SESSION[$aff_id]))
+{
+	$_SESSION[$aff_id]=0;
+	$_SESSION[$get] = 0;
+}
+
+$_SESSION[$get] = $_SESSION[$get]+1;
+$_SESSION[$aff_id] = $_SESSION[$aff_id]+1;
+	
+
+if (($_SESSION[$get]) < 4 && ($_SESSION[$aff_id]) < 4) {
+    mysql_query("INSERT INTO upload (aff_id,val) values ('".$aff_id."','".$get."')");
+    echo "insert";
+}
+else
+{
+  echo "No"; 
+               
+}
+}
+?>
+<html>
+</body>
+<a href="count.php?val=get1&aff_id=test">Count Clicks1</a>
+<a href="count.php?val=get2&aff_id=test">Count Clicks2</a>
+<a href="count.php?val=get3&aff_id=test">Count Clicks3</a>
+<a href="count.php?val=get4&aff_id=test">Count Clicks4</a>
+<br>
+<br>
+<a href="count.php?val=get1&aff_id=test1">Count Clicks1</a>
+<a href="count.php?val=get2&aff_id=test1">Count Clicks2</a>
+<a href="count.php?val=get3&aff_id=test1">Count Clicks3</a>
+<a href="count.php?val=get4&aff_id=test1">Count Clicks4</a>
+
+</body>
+</html>
+
